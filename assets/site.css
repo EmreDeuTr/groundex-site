@@ -216,3 +216,4 @@ section{padding:88px 0;position:relative}
 .m-img img{object-position:50% 62%}
 .pm-main{object-fit:contain;background:#E9ECEA}
 .hero-badge{bottom:-22px}
+.v-single{max-width:1000px}.v-single video{width:100%;border-radius:var(--radius);background:#000;aspect-ratio:16/9;display:block;box-shadow:var(--shadow)}

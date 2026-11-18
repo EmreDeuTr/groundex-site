@@ -217,3 +217,59 @@ section{padding:88px 0;position:relative}
 .pm-main{object-fit:contain;background:#E9ECEA}
 .hero-badge{bottom:-22px}
 .v-single{max-width:1000px}.v-single video{width:100%;border-radius:var(--radius);background:#000;aspect-ratio:16/9;display:block;box-shadow:var(--shadow)}
+
+/* ===== v4: Stil der Visitenkarte (Grün-Weiß-Schwarz, diagonal) ===== */
+:root{--g:#46AC3A;--g-dark:#368A2C;--g-lime:#71C42D;--g-deep:#21201F;--g-light:#E9F5E5;--g-line:#CFE6C9;--ink:#21201F;--ink-2:#45474A;--bg-2:#EDEEED}
+.gear-bg,.grass-edge,.grass-top{display:none!important}
+.eyebrow{display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:34px;height:10px;background:linear-gradient(90deg,var(--g) 0 60%,var(--ink) 60% 100%);clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%)}
+.btn{border-radius:4px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);padding-left:26px;padding-right:26px}
+.btn-ghost{clip-path:none;border-radius:6px}
+.lang button.active{background:var(--ink)}
+/* Hero */
+.hero{background:var(--bg-2);padding-bottom:90px}
+.hero::before{content:"";position:absolute;top:0;right:0;bottom:0;width:46%;background:linear-gradient(160deg,var(--g-lime),var(--g));clip-path:polygon(28% 0,100% 0,100% 100%,0 100%)}
+.hero::after{content:"";position:absolute;top:0;right:41%;width:180px;height:42%;background:linear-gradient(180deg,#3d3d3d,#21201F);clip-path:polygon(0 0,100% 0,62% 100%)}
+.hero .wrap{position:relative;z-index:1}
+.hero-photo img{border-radius:6px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.hero-badge{border-radius:4px;background:var(--ink);color:#fff;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);padding:14px 26px}
+.hero-badge i{background:var(--g);color:#fff;border-radius:4px}
+/* Leistungen */
+.svc{border-radius:6px;border:0;border-top:4px solid var(--g);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.svc .ic{background:var(--ink);color:#fff;border-radius:4px;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);width:62px}
+/* Maschinen */
+.filters button.active{background:var(--g);border-color:var(--g)}
+.m-card{border-radius:6px}
+.m-type{background:var(--ink);color:#fff;border-radius:3px;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);padding:5px 14px}
+.m-price{color:var(--g-dark)}
+/* Mieten */
+.rent{background:var(--ink)}
+.rent::before{content:"";position:absolute;top:0;right:0;bottom:0;width:30%;background:linear-gradient(160deg,var(--g-lime),var(--g));clip-path:polygon(35% 0,100% 0,100% 100%,0 100%);opacity:.95}
+.rent .wrap{position:relative;z-index:1}
+.rent .eyebrow{color:var(--g-lime)}
+.rent li{border-radius:4px;background:rgba(255,255,255,.07)}
+.rent li svg{color:var(--g-lime)}
+/* Ablauf / Warum */
+.step{border-radius:6px;background:#fff;border:0;border-left:4px solid var(--g);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.step::before{border-radius:4px;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);width:54px;background:var(--ink)}
+.why{border-top-color:var(--g)}
+/* Kontakt wie Kartenrückseite */
+.contact-card{border-radius:6px;border:0}
+.contact-main{background:var(--bg-2)}
+.contact-list{gap:10px}
+.contact-list>div{background:linear-gradient(90deg,#21201F,#3d3d3d);color:#fff;padding:10px 26px 10px 10px;align-items:center;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);max-width:520px}
+.contact-list i{background:var(--g);color:#fff;border-radius:3px;width:40px;height:40px;margin-left:10px}
+.contact-list small{color:#C0BEBD}
+.contact-list a{color:#fff}
+.contact-list a:hover{color:var(--g-lime)}
+.contact-list #maps-link{color:var(--g-lime)!important}
+.contact-side{background:linear-gradient(160deg,var(--g-lime),var(--g))}
+.contact-side::before{content:"";position:absolute;top:0;right:0;width:120px;height:55%;background:#21201F;clip-path:polygon(0 0,100% 0,100% 100%)}
+.contact-side>*{position:relative}
+/* Footer */
+.site-footer{background:var(--ink);margin-top:0}
+.site-footer::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:linear-gradient(100deg,var(--g) 0 45%,#21201F 45% 52%,#E6E6E5 52% 88%,var(--g-lime) 88%)}
+.f-logo{border-radius:4px}
+.wa-float{border-radius:50%}
+.pm-box{border-radius:8px}
+@media (max-width:980px){.hero::before{width:100%;height:38%;top:auto;clip-path:polygon(0 30%,100% 0,100% 100%,0 100%)}.hero::after{display:none}.rent::before{display:none}}

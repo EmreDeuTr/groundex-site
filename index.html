@@ -3,9 +3,9 @@
   GroundEx GmbH — Website v3 (DE / TR / EN)
   ==================== TÜRKÇE NOTLAR ====================
   • Makine listesi Google Tablo'dan otomatik gelir (SHEET_CSV_URL, aşağıda script içinde).
-    Sütunlar: A İsim · B Kategori (pflege / baumaschinen / fahrzeuge / werkzeuge) ·
-    C Tür (kauf / miete / kauf_miete) · D Fiyat · E Özellikler ·
-    F Fotoğraflar (images/ klasöründeki dosya adları, virgülle) · G Detaylar (isteğe bağlı, satırları | ile ayır)
+    kategorie: pflege / baumaschinen / fahrzeuge / werkzeuge · typ: kauf / miete / kauf_miete
+    Sütun başlıklarına göre okunur: name · kategorie · typ · preis · beschreibung · foto · gebraucht · aktiv · details(isteğe bağlı)
+    aktiv = nein → sitede gösterilmez. foto = images/ klasöründeki dosya adları, virgülle.
   • Tablo yüklenemezse "machines" listesindeki yedek makineler gösterilir.
   • Metinler "i18n" içinde: de / tr / en.
   • Tasarım dosyası: assets/site.css (Impressum, Datenschutz vb. sayfalar da bunu kullanır).
@@ -422,10 +422,17 @@ applyText();
     end(); return rows; }
   fetch(SHEET_CSV_URL + "&v=" + Date.now()).then(r => r.text()).then(text => {
     const rows = parseCSV(text); if(rows.length < 2) return;
-    const items = rows.slice(1).filter(r => r[0] && r[0].trim()).map(r => {
-      const imgs = (r[5]||"").split(",").map(s => s.trim()).filter(Boolean).map(s => "images/" + s.replace(/^images\//i,""));
-      return {name:r[0].trim(), category:(r[1]||"pflege").trim().toLowerCase(), type:(r[2]||"kauf").trim().toLowerCase(),
-        price:(r[3]||"").trim(), specs:(r[4]||"").trim(), images:imgs, details:(r[6]||"").trim()}; });
+    const H = rows[0].map(h => h.trim().toLowerCase());
+    const col = (...names) => { for(const n of names){ const i = H.indexOf(n); if(i > -1) return i; } return -1; };
+    const ci = {name:col("name"), cat:col("kategorie","category"), type:col("typ","type"), price:col("preis","price"),
+      specs:col("beschreibung","specs"), img:col("foto","fotos","images"), det:col("details","detail"), aktiv:col("aktiv","active")};
+    const g = (r,i) => (i > -1 && r[i] ? r[i].trim() : "");
+    const catMap = {nutzfahrzeuge:"fahrzeuge",fahrzeug:"fahrzeuge",baumaschine:"baumaschinen",baumaschinen:"baumaschinen",baumaschnen:"baumaschinen",geraete:"werkzeuge",geräte:"werkzeuge",werkzeug:"werkzeuge"};
+    const items = rows.slice(1).filter(r => g(r,ci.name) && !/^(nein|no|0|hayır)$/i.test(g(r,ci.aktiv))).map(r => {
+      const imgs = g(r,ci.img).split(",").map(s => s.trim()).filter(Boolean).map(s => "images/" + s.replace(/^images\//i,""));
+      let cat = g(r,ci.cat).toLowerCase() || "pflege"; cat = catMap[cat] || cat;
+      return {name:g(r,ci.name), category:cat, type:(g(r,ci.type) || "kauf").toLowerCase(),
+        price:g(r,ci.price), specs:g(r,ci.specs), images:imgs, details:g(r,ci.det)}; });
     if(!items.length) return;
     machines.length = 0; items.forEach(x => machines.push(x)); activeCat = "all"; renderFilters(); renderCards();
   }).catch(() => {});
